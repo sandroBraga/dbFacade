@@ -1,0 +1,16 @@
+{
+  "name": "node-db-facade",
+  "version": "1.0.0",
+  "description": "Responsavel por conectar backend node com banco de dados sql",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm start",
+    "test": "npm test"
+  },
+  "author": "Sandro Braga",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}
