@@ -20,9 +20,36 @@ describe("Testando login", () => {
 	   	.post('/login')
 	   	.send(login)
 	   	.end((err, response) => {
-			if (err) done(err);
+			if (err) throw(err);
 			response.should.have.status(400);
 		});
 	   done()
 	   });
+	it("Deveria retornar 404 quando nao encontrar nenhum usuario", (done) => {
+		let login = {
+			"email": "fjhewf",
+			"senha": "dneuwhf"
+		};
+		chai.request(URL_BASE)
+		.post('/login')
+		.send(login)
+		.end((err, response) => {
+			if (err) throw err;
+			response.should.have.status(404);
+		});
+		done();
+	});
+	it("Deveria retornar 200 quando tudo da certo", (done) => {
+		let login = {
+			"email": "sandro@mail.com",
+			"senha": "12345"
+		};
+		chai.request(URL_BASE)
+		.post('/login')
+		.end((err, response) => {
+			if (err) throw(err);
+			response.should.have.status(200);
+		});
+		done();
+	});
    });
