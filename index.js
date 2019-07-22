@@ -14,14 +14,15 @@ app.get('/', (req, res) => {
   res.send(JSON.stringify("I wish i was dead"));
 });
 
-app.get('/get-all-users', (req, res) => {
+app.get('/get-all', (req, res) => {
   db.querySimples(tabelas.TABELA_USUARIO, (result) => {
-    if(result.length > 0) {
+    if(result) {
 		  res.status(200).send(result);
-      return;
+		  return;
 	  } else {
+
 		  res.status(500).send(JSON.stringify('Opa'));
-      return;
+		  return;
 	  }
   });
 });
@@ -32,25 +33,44 @@ app.post('/login', (req, res) => {
     return;
   }
   db.queryLogin(req.body, (result) => {
-    if(result.length > 0) {
+    if(result) {
 	     res.status(200).send(result);
 	     return;
     } else {
 	    res.status(404).send(JSON.stringify({'aviso':'Usuário não encontrado'}));
-      return;
+	    return;
     }
   });
 });
 
 app.post('/insert', (req, res) => {
-  console.log('req ', req.body);
-  db.queryInserGenerica(req.body, (result) => {
-	  console.log(result);
+  if(req.body.tabela === '' || req.body.campos === '') {
+    res.status(400).send(JSON.stringify({'error': 'Tabela ou campos não informados'}));
+    return;
+  }
+  db.queryInsertGenerica(req.body, (result) => {
+    if(result) {
+      res.status(200).send(result);
+      return;
+    } else {
+      res.send(500).send(JSON.stringify({'error': 'Ocorreu um erro ao fazer a inserção'}));
+      return;
+    }
   });
 });
 
 app.post('/delete', (req, res) => {
+	if(req.body.tabela === '') {
+		res.status(400).send(JSON.stringify({'error': 'Não é possível deletar sem infomar o id ou a tabela'}));
+		return;
+	}
   db.queryDeleteGenerica(req.body, (result) => {
-	  console.log(result);
+	  if(result) {
+	     res.status(200).send(result);
+		  return;
+	  } else {
+		  res.status(500).send(JSON.stringify({'error':'Ocorreu um erro fazer a deleção'}));
+		  return;
+	  }
   });
 });

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "mocha --exit"
+    "test": "nyc mocha --exit"
   },
   "author": "Sandro Braga",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "mocha": "^6.1.4",
     "mysql": "^2.17.1",
     "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
     "request": "^2.88.0",
     "should": "^13.2.3"
   },
