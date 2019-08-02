@@ -27,6 +27,18 @@ app.get('/get-all', (req, res) => {
   });
 });
 
+app.get('/get/usuario/:id', (req, res) => {
+   db.queryGetById(req.body, (result) => {
+	   if(result) {
+		   rest.status(200).send(result);
+		   return;
+	   } else {
+		   res.status(404).send(JSON.stringify({'aviso': 'Não encontrado'}));
+		   return;
+	   }
+   });
+});
+
 app.post('/login', (req, res) => {
   if(req.body.email === '' || req.body.senha === '') {
     res.status(400).send(JSON.stringify({'error': 'Usuário ou senha não informado'}));
@@ -53,7 +65,7 @@ app.post('/insert', (req, res) => {
       res.status(200).send(result);
       return;
     } else {
-      res.send(500).send(JSON.stringify({'error': 'Ocorreu um erro ao fazer a inserção'}));
+      res.status(500).send(JSON.stringify({'error': 'Ocorreu um erro ao fazer a inserção'}));
       return;
     }
   });
