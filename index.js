@@ -1,6 +1,6 @@
 const express = require('express');
 const db      = require('./db-facade.js');
-const tabelas = require('./table-constants.js');
+const tabelas = require('./constants/table-constants.js');
 const app     = express();
 
 app.use(express.json());
@@ -20,8 +20,7 @@ app.get('/get-all', (req, res) => {
 		  res.status(200).send(result);
 		  return;
 	  } else {
-
-		  res.status(500).send(JSON.stringify('Opa'));
+		  res.status(500).send(result);
 		  return;
 	  }
   });
@@ -30,7 +29,7 @@ app.get('/get-all', (req, res) => {
 app.get('/get/usuario/:id', (req, res) => {
    db.queryGetById(req.body, (result) => {
 	   if(result) {
-		   rest.status(200).send(result);
+		   res.status(200).send(result);
 		   return;
 	   } else {
 		   res.status(404).send(JSON.stringify({'aviso': 'Não encontrado'}));
@@ -40,16 +39,16 @@ app.get('/get/usuario/:id', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  if(req.body.email === '' || req.body.senha === '') {
+  if((req.body.email === '' || req.body.email === undefined) || (req.body.senha === '' || req.body.senha === undefined)) {
     res.status(400).send(JSON.stringify({'error': 'Usuário ou senha não informado'}));
     return;
   }
   db.queryLogin(req.body, (result) => {
     if(result) {
-	     res.status(200).send(result);
-	     return;
+	    res.status(200).send(result);
+	    return;
     } else {
-	    res.status(404).send(JSON.stringify({'aviso':'Usuário não encontrado'}));
+	    res.status(404).send(result);
 	    return;
     }
   });
@@ -81,7 +80,7 @@ app.post('/delete', (req, res) => {
 	     res.status(200).send(result);
 		  return;
 	  } else {
-		  res.status(500).send(JSON.stringify({'error':'Ocorreu um erro fazer a deleção'}));
+		  res.status(500).send(result);
 		  return;
 	  }
   });

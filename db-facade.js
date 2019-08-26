@@ -1,10 +1,11 @@
-const db      = require('mysql');
-const tabelas = require('./table-constants.js');
+const db       = require('mysql');
+const tabelas  = require('./constants/table-constants.js');
+const dbConfig = require('./db-config/db-config.json');
 
 const con = db.createConnection({
-  host:     "localhost",
-  user:     "root",
-  database: "PETSHOP"
+  host:     dbConfig.host,
+  user:     dbConfig.user,
+  database: dbConfig.database
 });
 
 module.exports = {
@@ -16,15 +17,17 @@ module.exports = {
   },
   querySimples: function(table, callback) {
     con.query(`SELECT * FROM ${table};`,  (err, result, fields) => {
-      if(err) callback(err);
-      callback(JSON.parse(JSON.stringify(result)));
+      if (err) callback(err);
+      if (result.length) callback(JSON.parse(JSON.stringify(result)));
+      else callback(JSON.stringify({'error':'Ocorreu um erro ao atender solicitacao'}));
     });
   },
   queryLogin: function(usuario, callback) {
     let query = `SELECT * FROM ${tabelas.TABELA_USUARIO} WHERE EMAIL = '${usuario.email}' AND SENHA = '${usuario.senha}';`;
     con.query(query, (err, result, fields) => {
-      if(err) callback(err);
-      callback(JSON.parse(JSON.stringify(result)));
+      if (err) callback(err);
+      if (result.length) callback(JSON.parse(JSON.stringify(result)));
+      else callback(JSON.stringify({'aviso':'Nenhum usuário encontrado'}));
     });
   },
   queryInsertGenerica: function(corpoInsert, callback) {
@@ -35,15 +38,13 @@ module.exports = {
       if (err) callback(err);
       if (result) callback(JSON.parse(JSON.stringify(result)));
     });
-    //INSERT INTO USUARIO (ID, NOME, ROLE, EMAIL, SENHA) VALUES ((SELECT MAX(ID) +1 FROM USUARIO USER), 'Oliveira', 'Usuario', 'oliveira@mail.com', '12345');
   },
   queryDeleteGenerica: function(corpoDelete, callback) {
     let query = `DELETE FROM ${corpoDelete.tabela} WHERE ID = ${corpoDelete.id};`;
     con.query(query, (err, result, fields) => {
-	 console.log('affectedRows ', result.affectedRows);
-	 console.log('fields', fields);
-	 if(err) callback(err);
-	 if(result) callback(JSON.parse(JSON.stringify({'sucesso': 'Registro excluído com sucesso'})));
+	    if (err) callback(err);
+	    if (result.affectedRows) callback(JSON.parse(JSON.stringify({'sucesso': 'Registro excluído com sucesso'})));
+      else callback(JSON.parse(JSON.stringify({'erro': 'Registro não encontrado'})))
     });
   }
 }

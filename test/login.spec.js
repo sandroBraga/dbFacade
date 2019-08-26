@@ -12,19 +12,19 @@ chai.use(chaiHttp);
 describe("Testando login", () => {
    it("Deveria retornar 400 quando usuario ou senha nao informado", (done) => {
 	   let login = {
-             "email": "sandro@mail.com",
+       "email": "sandro@mail.com",
 	     "senha": ""
 	   };
 
 	   chai.request(URL_BASE)
-	   	.post('/login')
-	   	.send(login)
-	   	.end((err, response) => {
-			if (err) throw(err);
-			response.should.have.status(400);
-		});
+	   	 .post('/login')
+	   	 .send(login)
+	   	 .end((err, response) => {
+			 if (err) throw(err);
+			 response.should.have.status(400);
+		 });
 	   done()
-	   });
+	});
 	it("Deveria retornar 404 quando nao encontrar nenhum usuario", (done) => {
 		let login = {
 			"email": "fjhewf",
@@ -46,6 +46,7 @@ describe("Testando login", () => {
 		};
 		chai.request(URL_BASE)
 		.post('/login')
+    .send(login)
 		.end((err, response) => {
 			if (err) throw(err);
 			response.should.have.status(200);
