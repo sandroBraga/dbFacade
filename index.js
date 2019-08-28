@@ -1,12 +1,13 @@
 const express = require('express');
 const db      = require('./db-facade.js');
 const tabelas = require('./constants/table-constants.js');
+const cors    = require('cors');
 const app     = express();
 
-app.use(express.json());
+app.use(express.json(), cors());
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
 });
 
 app.get('/', (req, res) => {
