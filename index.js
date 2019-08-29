@@ -1,8 +1,9 @@
-const express = require('express');
-const db      = require('./db-facade.js');
-const tabelas = require('./constants/table-constants.js');
-const cors    = require('cors');
-const app     = express();
+const express         = require('express');
+const db              = require('./db-facade.js');
+const tabelas         = require('./constants/table-constants.js');
+const loginController = require('./controllers/login.js');
+const cors            = require('cors');
+const app             = express();
 
 app.use(express.json(), cors());
 
@@ -40,18 +41,14 @@ app.get('/get/usuario/:id', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
+	console.log('req ', req.body);
   if((req.body.email === '' || req.body.email === undefined) || (req.body.senha === '' || req.body.senha === undefined)) {
     res.status(400).send(JSON.stringify({'error': 'Usuário ou senha não informado'}));
     return;
   }
-  db.queryLogin(req.body, (result) => {
-    if(result) {
-	    res.status(200).send(result);
-	    return;
-    } else {
-	    res.status(404).send(result);
-	    return;
-    }
+  loginController.login(req.body, (result) => {
+    res.status(result.status).send(result.response);
+    return;
   });
 });
 
