@@ -1,5 +1,5 @@
 const db       = require('mysql');
-const tabelas  = require('./constants/table-constants.js');
+const tabelas  = require('./constants/tables.js');
 const dbConfig = require('./db-config/db-config.json');
 
 const con = db.createConnection({

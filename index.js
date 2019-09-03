@@ -1,9 +1,10 @@
-const express         = require('express');
-const db              = require('./db-facade.js');
-const tabelas         = require('./constants/table-constants.js');
-const loginController = require('./controllers/login.js');
-const cors            = require('cors');
-const app             = express();
+const express           = require('express');
+const db                = require('./db-facade.js');
+const tabelas           = require('./constants/tables.js');
+const loginController   = require('./controllers/login.js');
+const clienteController = require('./controllers/cliente.js')
+const cors              = require('cors');
+const app               = express();
 
 app.use(express.json(), cors());
 
@@ -47,6 +48,36 @@ app.post('/login', (req, res) => {
     return;
   }
   loginController.login(req.body, (result) => {
+    res.status(result.status).send(result.response);
+    return;
+  });
+});
+
+app.post('/cliente', (req, res) => {
+  clienteController.inserir(req.body, (result) => {
+    res.status(result.status).send(result.response);
+    return;
+  });
+});
+
+app.put('/cliente', (req, res) => {
+  clienteController.editar(req.body, (result) => {
+    res.status(result.status).send(result.response);
+    return;
+  })
+});
+
+app.get('/cliente', (req, res) => {
+  clienteController.getAll((result) => {
+    res.status(result.status).send(result.response);
+    return;
+  });
+});
+
+app.get('/cliente/:id', (req, res) => {
+  let nomeCliente = req.query.nome;
+  console.log('nomeCliente ', nomeCliente);
+  clienteController.getSingle(nomeCliente, (result) => {
     res.status(result.status).send(result.response);
     return;
   });
