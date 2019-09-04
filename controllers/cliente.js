@@ -31,8 +31,8 @@ module.exports = {
       else callback(JSON.parse(JSON.stringify({'status': 500, 'response': {'msg':'Erro ao realizar consulta'}})));
     });
   },
-  getSingle: (nome, callback) => {
-    let query = `SELECT * FROM ${tabelas.TABELA_PESSOA} WHERE ID_PERFIL = 1 AND NOME = '${nome}'`;
+  getSingle: (id, callback) => {
+    let query = `SELECT * FROM ${tabelas.TABELA_PESSOA} WHERE ID_PERFIL = 1 AND ID = '${id}'`;
     console.log('query ', query);
     dbFacade.executaQuery(query, (result) => {
       if (result.length) callback({'status': 200, 'response': result});
