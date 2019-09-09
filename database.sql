@@ -1,74 +1,74 @@
-CREATE TABLE PERFIS (
-	ID INT NOT NULL, 
-	PERFIL VARCHAR (20) NOT NULL, 
-	PRIMARY KEY (ID)
+create table perfis (
+	id int not null, 
+	perfil varchar (20) not null, 
+	primary key (id)
 );
 /
-INSERT INTO PERFIS (ID, PERFIL) 
-	VALUES (1, 'CLIENTE'), 
-	(2, 'VETERINARIO'), 
-	(3, 'ATENDENTE'), 
-	(4, 'ADMINISTRADOR');
+insert into perfis (id, perfil) 
+	values (1, 'cliente'), 
+	(2, 'veterinario'), 
+	(3, 'atendente'), 
+	(4, 'administrador');
 /
-CREATE TABLE PESSOA (ID INT NOT NULL, 
-	ID_PERFIL INT NOT NULL, 
-	ID_ENDERECO INT NOT NULL,
-	NOME VARCHAR(100) NOT NULL, 
-	CPF VARCHAR(100) NOT NULL,
-	IDENTIDADE VARCHAR(100) NOT NULL, 
-	EMAIL VARCHAR(50) NOT NULL,
-	SENHA VARCHAR(50) NOT NULL, 
-	PRIMARY KEY (ID),
-	FOREIGN KEY (ID_PERFIL) REFERENCES PERFIS (ID), 
-	FOREIGN KEY (ID_ENDERECO) REFERENCES ENDERECO (ID)	
+create table pessoa (id int not null, 
+	id_perfil int not null, 
+	id_endereco int not null,
+	nome varchar(100) not null, 
+	cpf varchar(100) not null,
+	identidade varchar(100) not null, 
+	email varchar(50) not null,
+	senha varchar(50) not null, 
+	primary key (id),
+	foreign key (id_perfil) references perfis (id), 
+	foreign key (id_endereco) references endereco (id)	
 );
 /
-INSERT INTO PESSOA (ID, ID_PERFIL, ID_ENDERECO, NOME, CPF, IDENTIDADE, EMAIL, SENHA)
-	VALUES (1, 1, 1, 'SANDRO', '8844', 'MG20', 'sandro@mail.com', '12345'), 
-	(2, 2, 1, 'OLIVEIRA', '2554', 'SP40', 'oliveira@mail.com', '12345'), 
-	(3, 3, 1, 'BRAGA', '5511', 'PR20', 'braga@mail.com', '12345'),
-	(4, 4, 1, 'BORGES', '2254', 'BA54', 'borges@mail.com', '12345');
+insert into pessoa (id, id_perfil, id_endereco, nome, cpf, identidade, email, senha)
+	values (1, 1, 1, 'sandro', '8844', 'mg20', 'sandro@mail.com', '12345'), 
+	(2, 2, 1, 'oliveira', '2554', 'sp40', 'oliveira@mail.com', '12345'), 
+	(3, 3, 1, 'braga', '5511', 'pr20', 'braga@mail.com', '12345'),
+	(4, 4, 1, 'borges', '2254', 'ba54', 'borges@mail.com', '12345');
 
 /
-CREATE TABLE VETERINARIO(
-	ID INT NOT NULL, CRV VARCHAR(50) NOT NULL, 
-	ID_TIPO_ANIMAL INT NOT NULL,
-	FOREIGN KEY (ID) REFERENCES PESSOA (ID),
-	FOREIGN KEY (ID_TIPO_ANIMAL) REFERENCES TIPO_ANIMAL(ID)
+create table veterinario(
+	id int not null, crv varchar(50) not null, 
+	id_tipo_animal int not null,
+	foreign key (id) references pessoa (id),
+	foreign key (id_tipo_animal) references tipo_animal(id)
 );
 /
-CREATE TABLE ADMINISTRADOR(ID INT NOT NULL, 
-	FOREIGN KEY (ID) REFERENCES PESSOA (ID)
+create table administrador(id int not null, 
+	foreign key (id) references pessoa (id)
 );
 /
-CREATE TABLE ATENDENTE(ID INT NOT NULL, 
-	FOREIGN KEY (ID) REFERENCES PESSOA (ID)
+create table atendente(id int not null, 
+	foreign key (id) references pessoa (id)
 );
 /
-CREATE TABLE TIPO_ANIMAL(ID INT NOT NULL, 
-	TIPO VARCHAR(30) NOT NULL, 
-	PRIMARY KEY (ID)
+create table tipo_animal(id int not null, 
+	tipo varchar(30) not null, 
+	primary key (id)
 );
 /
-CREATE TABLE ENDERECO (ID INT NOT NULL, 
-	RUA VARCHAR(100) NOT NULL, 
-	NUMERO INT NOT NULL,
-	CEP VARCHAR(100) NOT NULL, 
-	BAIRRO VARCHAR(100) NOT NULL,
-	UF VARCHAR(2) NOT NULL, 
-	CIDADE VARCHAR(100) NOT NULL,
-	PRIMARY KEY (ID)
+create table endereco (id int not null, 
+	rua varchar(100) not null, 
+	numero int not null,
+	cep varchar(100) not null, 
+	bairro varchar(100) not null,
+	uf varchar(2) not null, 
+	cidade varchar(100) not null,
+	primary key (id)
 );
 /
-INSERT INTO ENDERECO (ID, RUA, NUMERO, CEP, BAIRRO, UF, CIDADE)
-	VALUES(1, 'COROMANDEL', 10, '38785000', 'CENTRO', 'MG', 'UBERLANDIA');
+insert into endereco (id, rua, numero, cep, bairro, uf, cidade)
+	values(1, 'coromandel', 10, '38785000', 'centro', 'mg', 'uberlandia');
 /
-CREATE TABLE SERVICO(ID INT NOT NULL, 
-	TEMPO DATE NOT NULL, VALOR_PATAZ DECIMAL(10,2),
-	CASHBACK_PATAZ DECIMAL(10,2), 
-	VALOR_REAL DECIMAL(10,2) NOT NULL,
-	DESCRICAO VARCHAR(50) NOT NULL,
-	PRIMARY KEY (ID)
+create table servico(id int not null, 
+	tempo date not null, valor_pataz decimal(10,2),
+	cashback_pataz decimal(10,2), 
+	valor_real decimal(10,2) not null,
+	descricao varchar(50) not null,
+	primary key (id)
 );
 
 

@@ -1,6 +1,6 @@
-const TABELA_PESSOA  = 'PESSOA';
-const TABELA_CLIENTE = 'CLIENTE';
-const TABELA_SERVICO = 'SERVICO';
+const TABELA_PESSOA  = 'pessoa';
+const TABELA_CLIENTE = 'cliente';
+const TABELA_SERVICO = 'servico';
 
 module.exports = {
    TABELA_PESSOA,
