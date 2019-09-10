@@ -17,8 +17,8 @@ module.exports = {
       else callback(JSON.parse(JSON.stringify({'status': 500, 'response': {'msg': 'Erro ao realizar update'}})));
     })
   },
-  remover: (cliente, callback) => {
-    let query = `DELETE FROM ${tabelas.TABELA_PESSOA} WHERE ID = ${cliente.id}`;
+  remover: (clienteId, callback) => {
+    let query = `DELETE FROM ${tabelas.TABELA_PESSOA} WHERE ID = ${clienteId}`;
     dbFacade.executaQuery(query, (result) => {
       if(result.affectedRows) callback(JSON.parse(JSON.stringify({'status': 200, 'response': {'msg':'Exclusão realizada com sucesso'}})));
       else callback(JSON.parse(JSON.stringify({'status': 500, 'response': {'msg':'Erro ao realizar exclusao'}})));
