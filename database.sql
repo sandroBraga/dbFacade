@@ -70,6 +70,21 @@ create table servico(id int not null,
 	descricao varchar(50) not null,
 	primary key (id)
 );
-
+/
+create table estoque(id int not null,
+	quantidade int not null,
+	primary key (id)
+);
+/
+create table produto(id int not null,
+	id_estoque int not null,
+	nome varchar(100) not null,
+	fabricante varchar(100) not null,
+	especificacoes varchar(100) not null,
+	valor_real double not null,
+	valor_pataz double not null,
+	primary key (id),
+	foreign key (id_estoque) references estoque (id) 
+);
 
 
