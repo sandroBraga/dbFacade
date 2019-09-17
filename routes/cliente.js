@@ -33,6 +33,7 @@ router.get('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   let idCliente = req.params.id;
+  console.log('idCliente ', idCliente);
   clienteController.remover(idCliente, (result) => {
     res.status(result.status).send(result.response);
   });

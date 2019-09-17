@@ -3,6 +3,7 @@ const express           = require("express");
 const router            = express.Router();
 
 router.post('/', (req, res) => {
+  console.log('body ', req.body);
   produtoController.inserir(req.body, (result) => {
     res.status(result.status).send(result.response);
     return;
@@ -24,7 +25,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.put('/', (req, res) => {
-  produtoController.editar((result) => {
+  produtoController.editar(req.body, (result) => {
     res.status(result.status).send(result.response);
   });
 });

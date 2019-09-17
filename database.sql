@@ -77,14 +77,13 @@ create table estoque(id int not null,
 );
 /
 create table produto(id int not null,
-	id_estoque int not null,
+	qtde_estoque int not null,
 	nome varchar(100) not null,
 	fabricante varchar(100) not null,
 	especificacoes varchar(100) not null,
 	valor_real double not null,
 	valor_pataz double not null,
-	primary key (id),
-	foreign key (id_estoque) references estoque (id) 
+	primary key (id)
 );
 
 
