@@ -17,10 +17,15 @@ create table pessoa (id int not null,
 	cpf varchar(100) not null,
 	identidade varchar(100) not null, 
 	email varchar(50) not null,
-	senha varchar(50) not null, 
+	senha varchar(50) not null,
+	rua varchar(100) not null, 
+	numero int not null,
+	cep varchar(100) not null, 
+	bairro varchar(100) not null,
+	uf varchar(2) not null, 
+	cidade varchar(100) not null
 	primary key (id),
-	foreign key (id_perfil) references perfis (id), 
-	foreign key (id_endereco) references endereco (id)	
+	foreign key (id_perfil) references perfis (id)
 );
 /
 insert into pessoa (id, id_perfil, id_endereco, nome, cpf, identidade, email, senha)
@@ -84,6 +89,24 @@ create table produto(id int not null,
 	valor_real double not null,
 	valor_pataz double not null,
 	primary key (id)
+);
+/
+create table pessoa (
+  id int not null,
+  id_perfil int not null,
+  nome varchar(100) not null,
+  cpf varchar(100) not null,
+  identidade varchar(100) not null,
+  email varchar(50) not null,
+  senha varchar(50) not null,
+  rua varchar(100) not null,
+  numero int not null,
+  cep varchar(100) not null,
+  bairro varchar(100) not null,
+  uf varchar(2) not null,
+  cidade varchar(100) not null,
+  primary key (id),
+  foreign key (id_perfil) references perfis (id)
 );
 
 
