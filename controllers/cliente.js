@@ -3,8 +3,9 @@ const tabelas  = require('../constants/tables.js');
 
 module.exports = {
   inserir: (cliente, callback) => {
-    let query = `INSERT INTO ${tabelas.TABELA_PESSOA} (ID, ID_PERFIL, ID_ENDERECO, NOME, CPF, IDENTIDADE, EMAIL, SENHA)`;
-    query += ` VALUES ((SELECT MAX(ID) +1 FROM ${tabelas.TABELA_PESSOA} ALIAS), 1, ${cliente.id_endereco}, '${cliente.nome}', '${cliente.cpf}', '${cliente.identidade}', '${cliente.email}', '${cliente.senha}');`
+    let query = `INSERT INTO ${tabelas.TABELA_PESSOA} (ID, ID_PERFIL, NOME, CPF, IDENTIDADE, EMAIL, SENHA, RUA, NUMERO, CEP, BAIRRO, UF, CIDADE)`;
+    query += ` VALUES ((SELECT MAX(ID) +1 FROM ${tabelas.TABELA_PESSOA} ALIAS), 1, ${cliente.id_endereco}, '${cliente.nome}', '${cliente.cpf}', '${cliente.identidade}', '${cliente.email}', '${cliente.senha}', '${cliente.rua}', '${cliente.numero}', '${cliente.cep}', '${cliente.bairro}', '${cliente.uf}', '${cliente.cidade}');`
+    console.log('QUERY_INSERT ', query);
     dbFacade.executaQuery(query, (result) => {
       if(result.affectedRows) callback({'status': 200, 'response': result});
       else callback(JSON.parse(JSON.stringify({'status': 500, 'response': {'msg':'Erro ao inserir'}})));
