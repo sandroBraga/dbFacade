@@ -108,5 +108,8 @@ create table pessoa (
   primary key (id),
   foreign key (id_perfil) references perfis (id)
 );
+/
+insert into pessoa(id, id_perfil, nome, cpf, identidade, email, senha, rua, numero, cep, bairro, uf, cidade) values (1, 1, 'teste', '1111', 'teste', 'teste@mail.com', '12345', 'rua sul', 117, '3875000', 'centro', 'mg', 'lagamar') , (2, 1, 'opa', '22222', 'teste2', 'mail@mail.com', '12345', 'rua sul', 118, '3875000', 'centro', 'mg', 'lagamar') ,
+			     (1234, 4, 'opa', '22222', 'teste2', 'admin@mail.com', '12345', 'rua sul', 118, '3875000', 'centro', 'mg', 'lagamar');
 
 
