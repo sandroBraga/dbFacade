@@ -11,7 +11,7 @@ module.exports = {
     });
   },
   editar: (cliente, callback) => {
-    let query = `UPDATE ${tabelas.TABELA_PESSOA} SET ID_ENDERECO = ${cliente.id_endereco}, NOME = '${cliente.nome}', CPF = '${cliente.cpf}', IDENTIDADE = '${cliente.identidade}', EMAIL = '${cliente.email}', SENHA = '${cliente.senha}' WHERE ID = ${cliente.id};`;
+    let query = `UPDATE ${tabelas.TABELA_PESSOA} SET NOME = '${cliente.nome}', CPF = '${cliente.cpf}', IDENTIDADE = '${cliente.identidade}', EMAIL = '${cliente.email}', SENHA = '${cliente.senha}', RUA = '${cliente.rua}', NUMERO = ${cliente.numero}, CEP = '${cliente.cep}', BAIRRO = '${cliente.bairro}', UF = '${cliente.uf}', CIDADE = '${cliente.cidade}' WHERE ID = ${cliente.id};`;
     dbFacade.executaQuery(query, (result) => {
       if(result.changedRows) callback({'status': 200, 'response': {'msg': 'Update realizado com sucesso'}});
       else callback(JSON.parse(JSON.stringify({'status': 500, 'response': {'msg': 'Erro ao realizar update'}})));

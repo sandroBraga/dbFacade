@@ -5,7 +5,6 @@ module.exports = {
   inserir: (produto, callback) => {
     let query = `INSERT INTO ${tabelas.TABELA_PRODUTO} (ID, QTDE_ESTOQUE, NOME, FABRICANTE, ESPECIFICACOES, VALOR_REAL, VALOR_PATAZ)`;
     query += ` VALUES ((SELECT MAX(ID) +1 FROM ${tabelas.TABELA_PRODUTO} ALIAS), ${produto.qtde_estoque}, '${produto.nome}', '${produto.fabricante}', '${produto.especificacoes}', '${produto.valor_real}', '${produto.valor_pataz}');`
-    console.log('query ', query);
     dbFacade.executaQuery(query, (result) => {
       if(result.affectedRows) callback({'status': 200, 'response': result});
       else callback(JSON.parse(JSON.stringify({'status': 500, 'response': {'msg':'Erro ao inserir'}})));
