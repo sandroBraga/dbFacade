@@ -31,7 +31,29 @@ Se a instalaçao for bem sucedida, você deve ser capaz de executar os comandos 
     $ cd dbFacade
     $ npm install
 
-## Executando o projecto
+## Dependencias
+    
+    chai: 4.2.0
+    chai-http: ^4.3.0
+    cors: 2.8.5
+    express: 4.17.1
+    mocha: 6.1.4
+    mysql: 2.17.1
+    nodemon: 1.19.1
+    nyc: 14.1.1
+    request: 2.88.0
+    should: 13.2.3
+    uuid: 3.3.3
+
+## Configurando o ambiente
+
+    $ cd dbFacade/db-config
+    $ vim db-config.json
+
+  Altere o arquivo de acordo com suas configurações
+  Utilize o arquivo petshop.sql para fazer o import das tabelas e dados
+
+## Executando o projeto
 
     $ npm start
 
